@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qbp="http://www.qbp-simulator.com/Schema201212" xmlns:qbpapi="http://www.qbp-simulator.com/ApiSchema201212" id="Definitions_0rom6dw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.0.0">
+  <bpmn:collaboration id="Collaboration_1x33xtq">
+    <bpmn:participant id="Participant_1pffbuc" name="Quy trình hủy học phần" processRef="Process_1vx13sx"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1vx13sx" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1sh0zk7">
+      <bpmn:lane id="Lane_1yh2ah3" name="Sinh viên">
+        <bpmn:flowNodeRef>Event_1lprzav</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0t2s788</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1uw57r4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1st724y</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1j66h3r</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1r7gfqr</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1a31l2j" name="Hệ thống đăng ký  học phần">
+        <bpmn:flowNodeRef>Activity_1hlj4yh</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1ynwvbr" name="Giáo viên chủ nhiệm">
+        <bpmn:flowNodeRef>Activity_1eoclow</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_07ssuig" name="Phòng đào tạo">
+        <bpmn:flowNodeRef>Gateway_16ad0ed</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0dnj3e0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_00ky2zg</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_06c9tad</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1lqzlrh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1ghxzqj</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0tuk1gt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1vctjal</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1l7947i</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_060rsir</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0cv3vcq</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="Flow_1rii8i2" sourceRef="Event_1lprzav" targetRef="Activity_1hlj4yh"/>
+    <bpmn:sequenceFlow id="Flow_080420q" sourceRef="Activity_1uw57r4" targetRef="Activity_1eoclow"/>
+    <bpmn:exclusiveGateway id="Gateway_16ad0ed">
+      <bpmn:incoming>Flow_1dcv2ch</bpmn:incoming>
+      <bpmn:outgoing>Flow_0anqhue</bpmn:outgoing>
+      <bpmn:outgoing>Flow_182b782</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_0dnj3e0">
+      <bpmn:incoming>Flow_1f6hymr</bpmn:incoming>
+      <bpmn:outgoing>Flow_04519o5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_10t86uz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1dcv2ch" sourceRef="Activity_06c9tad" targetRef="Gateway_16ad0ed"/>
+    <bpmn:sequenceFlow id="Flow_0anqhue" name="Không đủ tín" sourceRef="Gateway_16ad0ed" targetRef="Event_060rsir"/>
+    <bpmn:sequenceFlow id="Flow_182b782" name="Đủ tín" sourceRef="Gateway_16ad0ed" targetRef="Activity_1lqzlrh"/>
+    <bpmn:sequenceFlow id="Flow_1f6hymr" sourceRef="Activity_1lqzlrh" targetRef="Gateway_0dnj3e0"/>
+    <bpmn:sequenceFlow id="Flow_04519o5" name="Học lực yếu" sourceRef="Gateway_0dnj3e0" targetRef="Activity_1ghxzqj"/>
+    <bpmn:sequenceFlow id="Flow_14ic4ik" sourceRef="Activity_00ky2zg" targetRef="Activity_06c9tad"/>
+    <bpmn:sequenceFlow id="Flow_1kuil0m" sourceRef="Activity_1st724y" targetRef="Activity_00ky2zg"/>
+    <bpmn:serviceTask id="Activity_1hlj4yh" name="tạo “Đơn xin rút học phần”">
+      <bpmn:incoming>Flow_1rii8i2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kxsv92</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:manualTask id="Activity_00ky2zg" name="tiếp nhận đơn">
+      <bpmn:incoming>Flow_1kuil0m</bpmn:incoming>
+      <bpmn:outgoing>Flow_14ic4ik</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Activity_06c9tad" name="kiểm tra số tín chỉ còn lại sau khi rút học phần">
+      <bpmn:incoming>Flow_14ic4ik</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dcv2ch</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1lqzlrh" name="Kiểm tra học lực">
+      <bpmn:incoming>Flow_182b782</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f6hymr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1ghxzqj" name="Gửi thông báo hoàn học phí cho phòng tài chính">
+      <bpmn:incoming>Flow_04519o5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tlmv46</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1tlmv46" sourceRef="Activity_1ghxzqj" targetRef="Activity_0tuk1gt"/>
+    <bpmn:sequenceFlow id="Flow_10t86uz" name="Học lực &gt; yếu" sourceRef="Gateway_0dnj3e0" targetRef="Activity_0cv3vcq"/>
+    <bpmn:startEvent id="Event_1lprzav" name="sinh viên chọn học phần cần rút">
+      <bpmn:outgoing>Flow_1rii8i2</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_0tuk1gt" name="Cập nhật kết quả lên hệ thống">
+      <bpmn:incoming>Flow_1tlmv46</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jalhq7</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1vyv36n">
+        <bpmn:targetRef>DataStoreReference_00ez9ad</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1vctjal">
+      <bpmn:incoming>Flow_1jalhq7</bpmn:incoming>
+      <bpmn:incoming>Flow_0bn72zf</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ni8fnz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1jalhq7" sourceRef="Activity_0tuk1gt" targetRef="Gateway_1vctjal"/>
+    <bpmn:sequenceFlow id="Flow_0bn72zf" sourceRef="Activity_0cv3vcq" targetRef="Gateway_1vctjal"/>
+    <bpmn:sequenceFlow id="Flow_1ni8fnz" sourceRef="Gateway_1vctjal" targetRef="Event_1l7947i"/>
+    <bpmn:endEvent id="Event_1l7947i" name="Học phần đã được hủy">
+      <bpmn:incoming>Flow_1ni8fnz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_060rsir" name="Thông báo không đủ số tín còn lại">
+      <bpmn:incoming>Flow_0anqhue</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_0c9jx6v"/>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_0t2s788" name="In đơn">
+      <bpmn:incoming>Flow_0kxsv92</bpmn:incoming>
+      <bpmn:outgoing>Flow_00y7sdr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:manualTask id="Activity_1uw57r4" name="Trình “Đơn xin rút học phần” cho Giảng viên chủ nhiệm xem xét">
+      <bpmn:incoming>Flow_00y7sdr</bpmn:incoming>
+      <bpmn:outgoing>Flow_080420q</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:manualTask id="Activity_1st724y" name="Nộp “Đơn xin rút học phần” đã có chữ ký của Giảng viên chủ nhiệm tại Phòng Đào tạo">
+      <bpmn:incoming>Flow_0heh38d</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kuil0m</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Activity_0cv3vcq" name="Cập nhật kết quả lên hệ thống">
+      <bpmn:incoming>Flow_10t86uz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bn72zf</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_05e66w9">
+        <bpmn:targetRef>DataStoreReference_00ez9ad</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:dataStoreReference id="DataStoreReference_00ez9ad"/>
+    <bpmn:sequenceFlow id="Flow_1mz3jv2" sourceRef="Event_1r7gfqr" targetRef="Event_1j66h3r"/>
+    <bpmn:sequenceFlow id="Flow_0kxsv92" sourceRef="Activity_1hlj4yh" targetRef="Activity_0t2s788"/>
+    <bpmn:sequenceFlow id="Flow_00y7sdr" sourceRef="Activity_0t2s788" targetRef="Activity_1uw57r4"/>
+    <bpmn:sequenceFlow id="Flow_0heh38d" sourceRef="Activity_1eoclow" targetRef="Activity_1st724y"/>
+    <bpmn:manualTask id="Activity_1eoclow" name="Giảng viên chủ nhiệm xem xét đơn và ký xác nhận">
+      <bpmn:incoming>Flow_080420q</bpmn:incoming>
+      <bpmn:outgoing>Flow_0heh38d</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:boundaryEvent id="Event_1r7gfqr" attachedToRef="Activity_1st724y">
+      <bpmn:outgoing>Flow_1mz3jv2</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1la1zmi"/>
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="Event_1j66h3r" name="Đơn không được tiếp nhận">
+      <bpmn:incoming>Flow_1mz3jv2</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_189aviz"/>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1x33xtq">
+      <bpmndi:BPMNShape id="Participant_1pffbuc_di" bpmnElement="Participant_1pffbuc" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1090" height="850"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_07ssuig_di" bpmnElement="Lane_07ssuig" isHorizontal="true">
+        <dc:Bounds x="190" y="580" width="1060" height="350"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1ynwvbr_di" bpmnElement="Lane_1ynwvbr" isHorizontal="true">
+        <dc:Bounds x="190" y="450" width="1060" height="130"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1a31l2j_di" bpmnElement="Lane_1a31l2j" isHorizontal="true">
+        <dc:Bounds x="190" y="330" width="1060" height="120"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1yh2ah3_di" bpmnElement="Lane_1yh2ah3" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="1060" height="250"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_16ad0ed_di" bpmnElement="Gateway_16ad0ed" isMarkerVisible="true">
+        <dc:Bounds x="415" y="785" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0dnj3e0_di" bpmnElement="Gateway_0dnj3e0" isMarkerVisible="true">
+        <dc:Bounds x="735" y="735" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hlj4yh_di" bpmnElement="Activity_1hlj4yh">
+        <dc:Bounds x="260" y="350" width="100" height="80"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vqwzxw_di" bpmnElement="Activity_00ky2zg">
+        <dc:Bounds x="270" y="630" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06t4h05_di" bpmnElement="Activity_06c9tad">
+        <dc:Bounds x="270" y="770" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ymp396_di" bpmnElement="Activity_1lqzlrh">
+        <dc:Bounds x="540" y="720" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u81lky_di" bpmnElement="Activity_1ghxzqj">
+        <dc:Bounds x="820" y="660" width="100" height="80"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1lxfez4_di" bpmnElement="Event_1lprzav">
+        <dc:Bounds x="252" y="132" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="229" y="175" width="83" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14y4j2y_di" bpmnElement="Activity_0tuk1gt">
+        <dc:Bounds x="960" y="660" width="100" height="80"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_10pbrqx" bpmnElement="Gateway_1vctjal" isMarkerVisible="true">
+        <dc:Bounds x="1085" y="745" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1i494oe_di" bpmnElement="Event_1l7947i">
+        <dc:Bounds x="1172" y="752" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1159" y="795" width="63" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0vwrdsr_di" bpmnElement="Event_060rsir">
+        <dc:Bounds x="572" y="832" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="547" y="875" width="86" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_13qknar_di" bpmnElement="Activity_0t2s788">
+        <dc:Bounds x="470" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19jpkzm_di" bpmnElement="Activity_1uw57r4">
+        <dc:Bounds x="700" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02tk68i_di" bpmnElement="Activity_1st724y">
+        <dc:Bounds x="1050" y="160" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0o37pnu" bpmnElement="Activity_0cv3vcq">
+        <dc:Bounds x="910" y="840" width="100" height="80"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_00ez9ad_di" bpmnElement="DataStoreReference_00ez9ad">
+        <dc:Bounds x="1015" y="765" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1r5uutb_di" bpmnElement="Activity_1eoclow">
+        <dc:Bounds x="850" y="490" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1j66h3r_di" bpmnElement="Event_1j66h3r">
+        <dc:Bounds x="1172" y="252" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1148" y="295" width="84" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1r7gfqr_di" bpmnElement="Event_1r7gfqr">
+        <dc:Bounds x="1132" y="182" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1rii8i2_di" bpmnElement="Flow_1rii8i2">
+        <di:waypoint x="288" y="150"/>
+        <di:waypoint x="320" y="150"/>
+        <di:waypoint x="320" y="350"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_080420q_di" bpmnElement="Flow_080420q">
+        <di:waypoint x="750" y="250"/>
+        <di:waypoint x="750" y="530"/>
+        <di:waypoint x="850" y="530"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dcv2ch_di" bpmnElement="Flow_1dcv2ch">
+        <di:waypoint x="370" y="810"/>
+        <di:waypoint x="415" y="810"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0anqhue_di" bpmnElement="Flow_0anqhue">
+        <di:waypoint x="440" y="835"/>
+        <di:waypoint x="440" y="850"/>
+        <di:waypoint x="572" y="850"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="458" y="833" width="63" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_182b782_di" bpmnElement="Flow_182b782">
+        <di:waypoint x="440" y="785"/>
+        <di:waypoint x="440" y="760"/>
+        <di:waypoint x="540" y="760"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="465" y="763" width="29" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f6hymr_di" bpmnElement="Flow_1f6hymr">
+        <di:waypoint x="640" y="760"/>
+        <di:waypoint x="735" y="760"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04519o5_di" bpmnElement="Flow_04519o5">
+        <di:waypoint x="760" y="735"/>
+        <di:waypoint x="760" y="700"/>
+        <di:waypoint x="820" y="700"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="760" y="683" width="59" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14ic4ik_di" bpmnElement="Flow_14ic4ik">
+        <di:waypoint x="320" y="710"/>
+        <di:waypoint x="320" y="770"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kuil0m_di" bpmnElement="Flow_1kuil0m">
+        <di:waypoint x="1120" y="240"/>
+        <di:waypoint x="1120" y="651"/>
+        <di:waypoint x="370" y="651"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tlmv46_di" bpmnElement="Flow_1tlmv46">
+        <di:waypoint x="920" y="700"/>
+        <di:waypoint x="960" y="700"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10t86uz_di" bpmnElement="Flow_10t86uz">
+        <di:waypoint x="760" y="785"/>
+        <di:waypoint x="760" y="880"/>
+        <di:waypoint x="910" y="880"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="736" y="827" width="69" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jalhq7_di" bpmnElement="Flow_1jalhq7">
+        <di:waypoint x="1060" y="700"/>
+        <di:waypoint x="1110" y="700"/>
+        <di:waypoint x="1110" y="745"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bn72zf_di" bpmnElement="Flow_0bn72zf">
+        <di:waypoint x="1010" y="880"/>
+        <di:waypoint x="1110" y="880"/>
+        <di:waypoint x="1110" y="795"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ni8fnz_di" bpmnElement="Flow_1ni8fnz">
+        <di:waypoint x="1135" y="770"/>
+        <di:waypoint x="1172" y="770"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mz3jv2_di" bpmnElement="Flow_1mz3jv2">
+        <di:waypoint x="1168" y="200"/>
+        <di:waypoint x="1190" y="200"/>
+        <di:waypoint x="1190" y="252"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kxsv92_di" bpmnElement="Flow_0kxsv92">
+        <di:waypoint x="360" y="390"/>
+        <di:waypoint x="520" y="390"/>
+        <di:waypoint x="520" y="250"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00y7sdr_di" bpmnElement="Flow_00y7sdr">
+        <di:waypoint x="570" y="210"/>
+        <di:waypoint x="700" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0heh38d_di" bpmnElement="Flow_0heh38d">
+        <di:waypoint x="950" y="530"/>
+        <di:waypoint x="1000" y="530"/>
+        <di:waypoint x="1000" y="200"/>
+        <di:waypoint x="1050" y="200"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1vyv36n_di" bpmnElement="DataOutputAssociation_1vyv36n">
+        <di:waypoint x="1024" y="740"/>
+        <di:waypoint x="1033" y="765"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_05e66w9_di" bpmnElement="DataOutputAssociation_05e66w9">
+        <di:waypoint x="995" y="840"/>
+        <di:waypoint x="1017" y="815"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+<qbp:processSimulationInfo id="qbp_31ee2e58-ba5a-4e22-499c-083ba561d171" processInstances="50" startDateTime="2024-11-17T02:00:00.000Z" currency="USD"><qbp:arrivalRateDistribution type="UNIFORM" mean="NaN" arg1="300" arg2="1200"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:arrivalRateDistribution><qbp:timetables><qbp:timetable id="QBP_DEFAULT_TIMETABLE" default="true" name="Default"><qbp:rules><qbp:rule fromTime="09:00:00.000+00:00" toTime="17:00:00.000+00:00" fromWeekDay="MONDAY" toWeekDay="FRIDAY"/></qbp:rules></qbp:timetable><qbp:timetable id="QBP_247_TIMETABLE" default="false" name="24/7"><qbp:rules><qbp:rule fromTime="00:00:00.000+00:00" toTime="23:59:59.999+00:00" fromWeekDay="MONDAY" toWeekDay="SUNDAY"/></qbp:rules></qbp:timetable></qbp:timetables><qbp:resources><qbp:resource id="Lane_1yh2ah3" name="Sinh viên" totalAmount="1" timetableId="QBP_247_TIMETABLE"/><qbp:resource id="Lane_1a31l2j" name="Hệ thống đăng ký  học phần" totalAmount="1" timetableId="QBP_247_TIMETABLE"/><qbp:resource id="Lane_1ynwvbr" name="Giáo viên chủ nhiệm" totalAmount="1" timetableId="QBP_DEFAULT_TIMETABLE"/><qbp:resource id="Lane_07ssuig" name="Phòng đào tạo" totalAmount="1" costPerHour="30000" timetableId="QBP_DEFAULT_TIMETABLE"/></qbp:resources><qbp:elements><qbp:element id="qbp_e1607b42-385f-8051-4197-0e7237c31d0c" elementId="Event_1r7gfqr"><qbp:durationDistribution type="FIXED" mean="172800" arg1="NaN" arg2="NaN"><qbp:timeUnit>days</qbp:timeUnit></qbp:durationDistribution></qbp:element><qbp:element id="qbp_b3c9e890-c9f0-8d3e-44ba-8d58fd803bfa" elementId="Activity_0tuk1gt" fixedCost="600" costThreshold="10500" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_07ssuig</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_e63bd859-6afe-1c00-84c2-f67512f3bb57" elementId="Activity_0cv3vcq"><qbp:durationDistribution type="NORMAL" mean="10" arg1="2" arg2="NaN"><qbp:timeUnit>seconds</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_07ssuig</qbp:resourceId></qbp:resourceIds></qbp:element><qbp:element id="qbp_2adee998-0121-1179-7e6f-50dba58539f9" elementId="Activity_1eoclow" fixedCost="10000" costThreshold="10000" durationThreshold="1"><qbp:durationDistribution type="TRIANGULAR" mean="600" arg1="120" arg2="3600"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_1ynwvbr</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>hours</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_1def392c-35b4-de02-8958-d85b0369fc06" elementId="Activity_1ghxzqj" fixedCost="600" costThreshold="10000" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_07ssuig</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_01f77536-e079-79c9-9029-4b444978a92f" elementId="Activity_0t2s788" fixedCost="1000" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_1yh2ah3</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_a83940fa-87d4-f7d1-9d57-79ad223543aa" elementId="Activity_1lqzlrh" fixedCost="600" costThreshold="10500" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_07ssuig</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_6e2ebee5-5db0-da86-b2f7-86f154cb446a" elementId="Activity_1st724y" fixedCost="NaN" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_1yh2ah3</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_fba38467-125a-1f5b-6350-26f1836562ac" elementId="Activity_1uw57r4" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_1yh2ah3</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_c06fc9a4-9c8b-ec10-f094-403f9c53ffe3" elementId="Activity_06c9tad" fixedCost="600" costThreshold="10500" durationThreshold="30"><qbp:durationDistribution type="NORMAL" mean="600" arg1="120" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_07ssuig</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_f06ac4e0-c563-1457-30b1-7eef47403b37" elementId="Activity_00ky2zg" fixedCost="300" costThreshold="10000" durationThreshold="15"><qbp:durationDistribution type="NORMAL" mean="300" arg1="60" arg2="NaN"><qbp:timeUnit>minutes</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_07ssuig</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element><qbp:element id="qbp_5c5c092e-5dbc-17af-429a-9334c603b3ef" elementId="Activity_1hlj4yh" fixedCost="300" costThreshold="500" durationThreshold="1"><qbp:durationDistribution type="FIXED" mean="10" arg1="NaN" arg2="NaN"><qbp:timeUnit>seconds</qbp:timeUnit></qbp:durationDistribution><qbp:resourceIds><qbp:resourceId>Lane_1a31l2j</qbp:resourceId></qbp:resourceIds><qbp:durationThresholdTimeUnit>minutes</qbp:durationThresholdTimeUnit></qbp:element></qbp:elements><qbp:sequenceFlows><qbp:sequenceFlow elementId="Flow_0anqhue" executionProbability="0.2"/><qbp:sequenceFlow elementId="Flow_182b782" executionProbability="0.8"/><qbp:sequenceFlow elementId="Flow_04519o5" executionProbability="0.1"/><qbp:sequenceFlow elementId="Flow_10t86uz" executionProbability="0.9"/></qbp:sequenceFlows><qbp:statsOptions/></qbp:processSimulationInfo><qbpapi:Results><qbpapi:Results><qbpapi:process><qbpapi:minCycleTime>6858.954</qbpapi:minCycleTime><qbpapi:averageCycleTime>118115.53463999998</qbpapi:averageCycleTime><qbpapi:maxCycleTime>173183.619</qbpapi:maxCycleTime><qbpapi:totalCycleTime>267802.756</qbpapi:totalCycleTime><qbpapi:minCost>19063.375</qbpapi:minCost><qbpapi:averageCost>25926.54033333333</qbpapi:averageCost><qbpapi:maxCost>37816.26666666667</qbpapi:maxCost><qbpapi:totalCost>1296327.0166666666</qbpapi:totalCost><qbpapi:minDuration>3029.428</qbpapi:minDuration><qbpapi:averageDuration>30243.32118</qbpapi:averageDuration><qbpapi:maxDuration>52638.956999999995</qbpapi:maxDuration><qbpapi:processInstances>50</qbpapi:processInstances></qbpapi:process><qbpapi:elements><qbpapi:element id="Process_1vx13sx.Activity_0tuk1gt" name="Cập nhật kết quả lên hệ thống"><qbpapi:duration><qbpapi:min>792.989</qbpapi:min><qbpapi:max>4362.486</qbpapi:max><qbpapi:average>2079.1839999999997</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>4529.491666666667</qbpapi:min><qbpapi:max>6210.858333333334</qbpapi:max><qbpapi:average>5286.989285714285</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>211.2150001525879</qbpapi:min><qbpapi:max>3890.947000026703</qbpapi:max><qbpapi:average>1516.7452857834953</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>762.989</qbpapi:min><qbpapi:max>4332.486</qbpapi:max><qbpapi:average>2049.1839999999997</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>7</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_0cv3vcq" name="Cập nhật kết quả lên hệ thống"><qbpapi:duration><qbpapi:min>8.592</qbpapi:min><qbpapi:max>4048.452</qbpapi:max><qbpapi:average>2255.0287428571423</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>55.333333333333336</qbpapi:min><qbpapi:max>122.725</qbpapi:max><qbpapi:average>83.225</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>4036.2599999904633</qbpapi:max><qbpapi:average>2245.041742862974</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>57600</qbpapi:max><qbpapi:average>4937.142857142857</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>35</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Gateway_16ad0ed" name="GATEWAY 1 XOR"><qbpapi:duration><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Gateway_1vctjal" name="GATEWAY 10 XOR"><qbpapi:duration><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>42</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Gateway_0dnj3e0" name="GATEWAY 2 XOR"><qbpapi:duration><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>42</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_1eoclow" name="Giảng viên chủ nhiệm xem xét đơn và ký xác nhận"><qbpapi:duration><qbpapi:min>1574.786</qbpapi:min><qbpapi:max>43640.853</qbpapi:max><qbpapi:average>20688.42268</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>10000</qbpapi:min><qbpapi:max>10000</qbpapi:max><qbpapi:average>10000</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>40840.73999977112</qbpapi:max><qbpapi:average>18980.61781999897</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>115200</qbpapi:max><qbpapi:average>44927.58476</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>1573.786</qbpapi:min><qbpapi:max>43639.853</qbpapi:max><qbpapi:average>20687.42268</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_1ghxzqj" name="Gửi thông báo hoàn học phí cho phòng tài chính"><qbpapi:duration><qbpapi:min>632.988</qbpapi:min><qbpapi:max>3454.823</qbpapi:max><qbpapi:average>2119.624</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>4597.108333333334</qbpapi:min><qbpapi:max>6670.708333333333</qbpapi:max><qbpapi:average>5589.832142857143</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>2828.6449999809265</qbpapi:max><qbpapi:average>1520.8441428797585</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>57600</qbpapi:max><qbpapi:average>8228.57142857143</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>602.988</qbpapi:min><qbpapi:max>3424.823</qbpapi:max><qbpapi:average>2089.624</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>7</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Event_1l7947i" name="Học phần đã được hủy"><qbpapi:duration><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>42</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_0t2s788" name="In đơn"><qbpapi:duration><qbpapi:min>463.517</qbpapi:min><qbpapi:max>18605.491</qbpapi:max><qbpapi:average>7405.96588</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>1000</qbpapi:min><qbpapi:max>1000</qbpapi:max><qbpapi:average>1000</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>17985.74900007248</qbpapi:max><qbpapi:average>6812.129019999504</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>433.517</qbpapi:min><qbpapi:max>18575.491</qbpapi:max><qbpapi:average>7375.96588</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_1lqzlrh" name="Kiểm tra học lực"><qbpapi:duration><qbpapi:min>515.702</qbpapi:min><qbpapi:max>4517.125</qbpapi:max><qbpapi:average>2724.568523809525</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>3597.9333333333334</qbpapi:min><qbpapi:max>7125.275</qbpapi:max><qbpapi:average>5655.037103174604</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>3961.547999858856</qbpapi:max><qbpapi:average>2117.964071438426</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>57600</qbpapi:max><qbpapi:average>4114.285714285715</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>485.702</qbpapi:min><qbpapi:max>4487.125</qbpapi:max><qbpapi:average>2694.568523809525</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>42</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_1st724y" name="Nộp “Đơn xin rút học phần” đã có chữ ký của Giảng viên chủ nhiệm tại Phòng Đào tạo"><qbpapi:duration><qbpapi:min>304.086</qbpapi:min><qbpapi:max>17545.311</qbpapi:max><qbpapi:average>3437.1815999999985</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>16784.420000076294</qbpapi:max><qbpapi:average>2860.443539996147</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>274.086</qbpapi:min><qbpapi:max>17515.311</qbpapi:max><qbpapi:average>3407.1815999999985</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Event_060rsir" name="Thông báo không đủ số tín còn lại"><qbpapi:duration><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>8</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_1uw57r4" name="Trình “Đơn xin rút học phần” cho Giảng viên chủ nhiệm xem xét"><qbpapi:duration><qbpapi:min>474.404</qbpapi:min><qbpapi:max>18837.495</qbpapi:max><qbpapi:average>8766.94504</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>18127.925999879837</qbpapi:max><qbpapi:average>8168.600579991341</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>444.404</qbpapi:min><qbpapi:max>18807.495</qbpapi:max><qbpapi:average>8736.94504</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_06c9tad" name="kiểm tra số tín chỉ còn lại sau khi rút học phần"><qbpapi:duration><qbpapi:min>473.149</qbpapi:min><qbpapi:max>4773.223</qbpapi:max><qbpapi:average>2778.05458</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>2652.0833333333335</qbpapi:min><qbpapi:max>7862.241666666667</qbpapi:max><qbpapi:average>5501.577166666667</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>4086.9469997882843</qbpapi:max><qbpapi:average>2189.8653200006484</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>57600</qbpapi:max><qbpapi:average>4608</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>443.149</qbpapi:min><qbpapi:max>4743.223</qbpapi:max><qbpapi:average>2748.05458</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Event_1lprzav" name="sinh viên chọn học phần cần rút"><qbpapi:duration><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_00ky2zg" name="tiếp nhận đơn"><qbpapi:duration><qbpapi:min>183.809</qbpapi:min><qbpapi:max>4066.362</qbpapi:max><qbpapi:average>2321.8531199999998</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>1668.6833333333334</qbpapi:min><qbpapi:max>4130.875</qbpapi:max><qbpapi:average>2793.7194999999997</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>3805.1890001296997</qbpapi:max><qbpapi:average>2022.6067800145722</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>57600</qbpapi:max><qbpapi:average>10652.536180000001</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>168.809</qbpapi:min><qbpapi:max>4051.362</qbpapi:max><qbpapi:average>2306.8531199999998</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element><qbpapi:element id="Process_1vx13sx.Activity_1hlj4yh" name="tạo “Đơn xin rút học phần”"><qbpapi:duration><qbpapi:min>10</qbpapi:min><qbpapi:max>10</qbpapi:max><qbpapi:average>10</qbpapi:average></qbpapi:duration><qbpapi:cost><qbpapi:min>300</qbpapi:min><qbpapi:max>300</qbpapi:max><qbpapi:average>300</qbpapi:average></qbpapi:cost><qbpapi:waitingTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:waitingTime><qbpapi:idleTime><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:idleTime><qbpapi:costOverThreshold><qbpapi:min>0</qbpapi:min><qbpapi:max>0</qbpapi:max><qbpapi:average>0</qbpapi:average></qbpapi:costOverThreshold><qbpapi:durationOverThreshold><qbpapi:min>9</qbpapi:min><qbpapi:max>9</qbpapi:max><qbpapi:average>9</qbpapi:average></qbpapi:durationOverThreshold><qbpapi:count>50</qbpapi:count></qbpapi:element></qbpapi:elements><qbpapi:resources><qbpapi:resource id="Lane_1a31l2j"><qbpapi:utilization>0.0018670457596037585</qbpapi:utilization></qbpapi:resource><qbpapi:resource id="Lane_1ynwvbr"><qbpapi:utilization>0.8988185879575956</qbpapi:utilization></qbpapi:resource><qbpapi:resource id="Lane_1yh2ah3"><qbpapi:utilization>0.3302653427509908</qbpapi:utilization></qbpapi:resource><qbpapi:resource id="Lane_07ssuig"><qbpapi:utilization>0.8244733658042511</qbpapi:utilization></qbpapi:resource></qbpapi:resources></qbpapi:Results><qbpapi:CycleTimesData><qbpapi:min>6858.954</qbpapi:min><qbpapi:max>173183.619</qbpapi:max><qbpapi:binWidth>16633</qbpapi:binWidth><qbpapi:values><qbpapi:value>7</qbpapi:value><qbpapi:value>1</qbpapi:value><qbpapi:value>6</qbpapi:value><qbpapi:value>8</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>25</qbpapi:value></qbpapi:values></qbpapi:CycleTimesData><qbpapi:CycleTimesInTimetableData><qbpapi:min>3029.428</qbpapi:min><qbpapi:max>52638.956999999995</qbpapi:max><qbpapi:binWidth>4961</qbpapi:binWidth><qbpapi:values><qbpapi:value>9</qbpapi:value><qbpapi:value>2</qbpapi:value><qbpapi:value>8</qbpapi:value><qbpapi:value>4</qbpapi:value><qbpapi:value>2</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>6</qbpapi:value><qbpapi:value>13</qbpapi:value></qbpapi:values></qbpapi:CycleTimesInTimetableData><qbpapi:WaitingTimesData><qbpapi:min>1951.1259999275208</qbpapi:min><qbpapi:max>73916.38899992753</qbpapi:max><qbpapi:binWidth>7197</qbpapi:binWidth><qbpapi:values><qbpapi:value>3</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>2</qbpapi:value><qbpapi:value>5</qbpapi:value><qbpapi:value>4</qbpapi:value><qbpapi:value>12</qbpapi:value><qbpapi:value>4</qbpapi:value><qbpapi:value>7</qbpapi:value><qbpapi:value>7</qbpapi:value></qbpapi:values></qbpapi:WaitingTimesData><qbpapi:CostsData><qbpapi:min>19063.375</qbpapi:min><qbpapi:max>37816.26666666667</qbpapi:max><qbpapi:binWidth>1876</qbpapi:binWidth><qbpapi:values><qbpapi:value>7</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>10</qbpapi:value><qbpapi:value>13</qbpapi:value><qbpapi:value>7</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>1</qbpapi:value><qbpapi:value>3</qbpapi:value><qbpapi:value>3</qbpapi:value></qbpapi:values></qbpapi:CostsData></qbpapi:Results></bpmn:definitions>
